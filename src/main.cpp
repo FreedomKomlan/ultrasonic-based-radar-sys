@@ -1,18 +1,20 @@
 #include <Arduino.h>
+#include "config.h"
+#include "ultrasonic.h"
 
-// put function declarations here:
-int myFunction(int, int);
+
+Ultrasonic ultrasonic;
 
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
-}
+  ultrasonic.init(TRIGGER_PIN, ECHO_PIN);
+  // Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
+  Serial.begin(115200);
+} 
 
 void loop() {
   // put your main code here, to run repeatedly:
-}
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  float distance = ultrasonic.measureDistance();
+  Serial.println(distance);
 }
