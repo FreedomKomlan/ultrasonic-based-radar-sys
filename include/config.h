@@ -38,4 +38,5 @@
 #define BUTTON_PIN            21
 // #define DISPLAY_SDA_PIN       22
 // #define DISPLAY_SCL_PIN       23
-#define LED_PIN               23
+#define LED_1_PIN               23
+#define LED_2_PIN               22
