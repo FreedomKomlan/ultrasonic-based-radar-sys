@@ -9,7 +9,7 @@ void ultrasonicTask(void *pvParameters) {
     while (true) {
         float distance = ultrasonic->measureDistance();
         Serial.println(distance);
-        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 1 second
+        vTaskDelay(400 / portTICK_PERIOD_MS); // Delay for 1 second
     }
 }
 
