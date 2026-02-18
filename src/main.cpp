@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "config.h"
 #include "ultrasonic.h"
+#include "display.h"
 #include "task.h"
 
 
@@ -8,11 +9,12 @@ Ultrasonic ultrasonic;
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(115200);
   ultrasonic.init(TRIGGER_PIN, ECHO_PIN);
+  initDisplay();
   pinMode(LED_1_PIN, OUTPUT);
   pinMode(LED_2_PIN, OUTPUT);
   // Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
-  Serial.begin(115200);
   digitalWrite(LED_1_PIN, HIGH);
   digitalWrite(LED_2_PIN, HIGH);
   xTaskCreatePinnedToCore(ultrasonicTask, "Ultrasonic Task", STACK_MEASURE, &ultrasonic, PRIO_MEASURE, NULL, CORE_REALTIME);

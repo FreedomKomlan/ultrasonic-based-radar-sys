@@ -6,6 +6,7 @@
 #include <Adafruit_SSD1306.h>
 #include "config.h"
 
+void initDisplay();
 void sendTextToDisplay(const char* text);
 void homeScreen(void *pvParameters);
 void lauchScreen(void *pvParameters);

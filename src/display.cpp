@@ -1,5 +1,26 @@
 #include "display.h"
 
+void initDisplay() {
+    // Create an instance of the display
+    Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET_PIN);
+
+    // Initialize the display
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
+        Serial.println(F("SSD1306 allocation failed"));
+        return;
+    }
+
+    // Clear the display buffer
+    display.clearDisplay();
+
+    // Display initial message
+    display.setTextSize(1);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(0, 0);
+    display.println("Initializing...");
+    display.display();
+}
+
 void sendTextToDisplay(const char* text) {
     // Create an instance of the display
     Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET_PIN);
