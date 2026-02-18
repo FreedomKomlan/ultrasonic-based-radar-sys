@@ -12,5 +12,8 @@ extern "C" {
 void ultrasonicTask(void *pvParameters);
 void blink_Led_1_task(void *pvParameters);
 void blink_Led_2_task(void *pvParameters);
+void sendText_task(void *pvParameters);
+// void homeScreen_task(void *pvParameters);
+// void launchScreen_task(void *pvParameters);
 #endif // TASK_H
 

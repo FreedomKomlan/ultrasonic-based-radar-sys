@@ -26,3 +26,17 @@ void sendTextToDisplay(const char* text) {
     // Display the buffer on the screen
     display.display();
 }
+
+void homeScreen(void *pvParameters) {
+    while (true) {
+        sendTextToDisplay("Home Screen");
+        vTaskDelay(DISPLAY_PERIOD_MS / portTICK_PERIOD_MS);
+    }
+}
+
+void lauchScreen(void *pvParameters) {
+    while (true) {
+        sendTextToDisplay("Launch Screen");
+        vTaskDelay(DISPLAY_PERIOD_MS / portTICK_PERIOD_MS);
+    }
+}

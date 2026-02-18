@@ -1,5 +1,6 @@
-#include "ultrasonic.h"
 #include "task.h"
+#include "ultrasonic.h"
+#include "display.h"
 
 
 void ultrasonicTask(void *pvParameters) {
@@ -28,5 +29,12 @@ void blink_Led_2_task(void *pvParameters) {
         vTaskDelay(200 / portTICK_PERIOD_MS); // Delay for 200 ms
         digitalWrite(LED_2_PIN, LOW);
         vTaskDelay(200 / portTICK_PERIOD_MS); // Delay for 200 ms
+    }
+}
+
+void sendText_task(void *pvParameters) {
+    while (true) {
+        sendTextToDisplay("Hello, World!");
+        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 1 second
     }
 }
