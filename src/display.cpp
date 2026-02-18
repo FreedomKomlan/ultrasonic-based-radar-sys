@@ -3,6 +3,7 @@
 void initDisplay() {
     // Create an instance of the display
     Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET_PIN);
+    Wire.begin(DISPLAY_SDA_PIN, DISPLAY_SCL_PIN);
 
     // Initialize the display
     if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
