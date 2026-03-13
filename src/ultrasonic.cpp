@@ -12,11 +12,11 @@ void Ultrasonic::init(int triggerPin, int echoPin) {
 float Ultrasonic::measureDistance() {
     // Send a 10 microsecond pulse to trigger the measurement
     digitalWrite(_triggerPin, LOW);
-    // delayMicroseconds(2);
-    vTaskDelay(2 / portTICK_PERIOD_MS); // Delay to ensure the trigger pin is low for a short period
+    delayMicroseconds(2);
+    // vTaskDelay(2 / portTICK_PERIOD_MS); // Delay to ensure the trigger pin is low for a short period
     digitalWrite(_triggerPin, HIGH);
-    // delayMicroseconds(10);
-    vTaskDelay(10 / portTICK_PERIOD_MS); // Delay to ensure the trigger pin is high for the required duration
+    delayMicroseconds(10);
+    // vTaskDelay(10 / portTICK_PERIOD_MS); // Delay to ensure the trigger pin is high for the required duration
     digitalWrite(_triggerPin, LOW);
 
     // Measure the duration of the echo pulse
