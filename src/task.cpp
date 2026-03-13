@@ -49,7 +49,7 @@ void scanArea_task(void *pvParameters) {
             servoMotor->setAngle(angle);
             int actualAngle = servoMotor->getAngle();
             in_distance = ultrasonic->measureDistance();
-            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\n Distance objet: " + String(in_distance) + " " + UNIT_DISTANCE;
+            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
             sendTextToDisplay(text_to_send_screen.c_str());
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
