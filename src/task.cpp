@@ -42,7 +42,7 @@ void sendText_task(void *pvParameters) {
 void scanArea_task(void *pvParameters) {
     ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
     Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
-    float distance(0.0f);
+    float distance;
     // ServoMotor servoMotor;
     while (true) {
         for (int angle = ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle <= ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle += 1) {
