@@ -15,5 +15,6 @@ void blink_Led_2_task(void *pvParameters);
 void sendText_task(void *pvParameters);
 // void homeScreen_task(void *pvParameters);
 // void launchScreen_task(void *pvParameters);
+void scanArea_task(void *pvParameters);
 #endif // TASK_H
 

@@ -51,6 +51,13 @@ void sendTextToDisplay(const char* text) {
     display.display();
 }
 
+void startingScreen(void *pvParameters) {
+    while (true) {
+        sendTextToDisplay("Starting Screen");
+        vTaskDelay(DISPLAY_PERIOD_MS / portTICK_PERIOD_MS);
+    }
+}
+
 void homeScreen(void *pvParameters) {
     while (true) {
         sendTextToDisplay("Home Screen");

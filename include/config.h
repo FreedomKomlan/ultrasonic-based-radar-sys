@@ -1,5 +1,13 @@
 #pragma once
 
+// Configuration pour lancement de la phase d'opération du système
+#define ZONE_ANGLE_THRESHOLD_MIN_DEG  30
+#define ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG  20 // à utiliser pour définir l'angle de départ minimum -> On fait des incréments/décréments de 5° à partir de ce seuil
+#define ZONE_ANGLE_THRESHOLD_MAX_DEG  150
+#define ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG  120 // à utiliser pour définir l'angle de départ maximum -> On fait des incréments/décréments de 5° à partir de ce seuil
+#define UNIT_DISTANCE "cm" // Unité de distance utilisée pour les mesures, cm par défaut
+#define ZONE_DISTANCE_THRESHOLD_CM  50   // seuil de distance pour déclencher l'alerte
+
 // Fréquences
 #define MEASURE_PERIOD_MS     40   // 25 Hz
 
@@ -12,6 +20,10 @@
 #define SCREEN_WIDTH          128 // OLED display width, in pixels
 #define SCREEN_HEIGHT         64  // OLED display height, in pixels
 #define DISPLAY_PERIOD_MS     80   // 12.5 Hz
+
+// Servo parameters
+static constexpr float SERVO_T60_S = 0.12f; // Time for the servo to move 60 degrees (in seconds)
+static constexpr float SAFETY_MARGIN_S_FACTOR = 1.2; // Factor to add as a safety margin to the servo movement time
 
 // Tailles de stack
 #define STACK_MEASURE         4096

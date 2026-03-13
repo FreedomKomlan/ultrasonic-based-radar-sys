@@ -10,6 +10,7 @@ extern Adafruit_SSD1306 display;
 
 void initDisplay();
 void sendTextToDisplay(const char* text);
+void startingScreen(void *pvParameters);
 void homeScreen(void *pvParameters);
 void lauchScreen(void *pvParameters);
 #endif // DISPLAY_H

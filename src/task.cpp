@@ -38,3 +38,22 @@ void sendText_task(void *pvParameters) {
         vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 1 second
     }
 }
+
+void scanArea_task(void *pvParameters) {
+    ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
+    // ServoMotor servoMotor;
+    while (true) {
+        for (int angle = ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle <= ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle += 5) {
+            servoMotor->setAngle(angle);
+            int actualAngle = servoMotor->getAngle();
+            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
+            sendTextToDisplay(text_to_send_screen.c_str());
+        }
+        for (int angle = ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle >= ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle -= 5) {
+            servoMotor->setAngle(angle);
+            int actualAngle = servoMotor->getAngle();
+            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
+            sendTextToDisplay(text_to_send_screen.c_str());
+        }
+    }
+}
