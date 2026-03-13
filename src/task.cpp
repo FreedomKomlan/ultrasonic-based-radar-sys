@@ -54,6 +54,7 @@ void scanArea_task(void *pvParameters) {
             int actualAngle = servoMotor->getAngle();
             String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
+            vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
     }
 }
