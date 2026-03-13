@@ -25,8 +25,8 @@ void setup() {
   xTaskCreatePinnedToCore(ultrasonicTask, "Ultrasonic Task", STACK_MEASURE, &ultrasonic, PRIO_MEASURE, NULL, CORE_REALTIME);
   xTaskCreatePinnedToCore(blink_Led_1_task, "Blink LED 1 Task", STACK_DISPLAY, NULL, PRIO_DISPLAY, NULL, CORE_SUPPORT);
   xTaskCreatePinnedToCore(blink_Led_2_task, "Blink LED 2 Task", STACK_DISPLAY, NULL, PRIO_DISPLAY, NULL, CORE_SUPPORT);
-  // xTaskCreatePinnedToCore(sendText_task, "Send Text Task", STACK_DISPLAY, NULL, PRIO_DISPLAY, NULL, CORE_SUPPORT);
-  xTaskCreatePinnedToCore(scanArea_task, "Scan Area Task", STACK_FSM, &servoMotor, PRIO_FSM, NULL, CORE_REALTIME);
+  xTaskCreatePinnedToCore(sendText_task, "Send Text Task", STACK_DISPLAY, NULL, PRIO_DISPLAY, NULL, CORE_SUPPORT);
+  // xTaskCreatePinnedToCore(scanArea_task, "Scan Area Task", STACK_FSM, &servoMotor, PRIO_FSM, NULL, CORE_REALTIME);
 } 
 
 void loop() {
