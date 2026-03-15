@@ -42,25 +42,25 @@ void sendText_task(void *pvParameters) {
 
 void scanArea_task(void *pvParameters) {
     ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
-    // Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
-    // float in_distance;
+    Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
+    float in_distance;
     // ServoMotor servoMotor;
     while (true) {
         for (int angle = ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle <= ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle += 1) {
             servoMotor->setAngle(angle);
             int actualAngle = servoMotor->getAngle();
-            // in_distance = ultrasonic->measureDistance();
-            // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg \n" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
-            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
+            in_distance = ultrasonic->measureDistance();
+            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
+            // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
         for (int angle = ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle >= ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle -= 1) {
             servoMotor->setAngle(angle);
             int actualAngle = servoMotor->getAngle();
-            // in_distance = ultrasonic->measureDistance();
-            // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\n Distance objet: " + String(in_distance) + " " + UNIT_DISTANCE;
-            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
+            in_distance = ultrasonic->measureDistance();
+            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
+            // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
