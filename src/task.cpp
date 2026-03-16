@@ -72,6 +72,14 @@ void scanArea_task(void *pvParameters) {
             String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
             // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
+            
+            // Send the angle and distance information to the pc via the serial port for visualization in the serial monitor
+            Serial.print(actualAngle);
+            Serial.print(';');
+            Serial.print(in_distance);
+            Serial.print('.');
+            Serial.print('\n');
+
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
         for (int angle = ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle >= ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle -= 1) {
@@ -82,11 +90,23 @@ void scanArea_task(void *pvParameters) {
             String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
             // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
+
+            // Send the angle and distance information to the pc via the serial port for visualization in the serial monitor
+            Serial.print(actualAngle);
+            Serial.print(';');
+            Serial.print(in_distance);
+            Serial.print('.');
+            Serial.print('\n');
+            
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
     }
 }
 
 void scanArea_manual_mode_task(void *pvParameters){
-
+    auto* p = static_cast<ScanTaskParams*>(pvParameters); 
+    // ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
+    // Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
+    ServoMotor* servoMotor = p->servo;
+    Ultrasonic* ultrasonic = p->us;
 }
