@@ -21,6 +21,10 @@ float Ultrasonic::measureDistance() {
 
     // Measure the duration of the echo pulse
     long duration = pulseIn(_echoPin, HIGH, 25000UL);
+    if (duration == 0) {
+        // No echo received within the timeout period
+        return -1.0; // Indicate an error or out of range
+    }
 
     // Calculate distance in centimeters
     float distance = (duration / 2.0) * 0.0343; // Speed of sound is ~343 m/s

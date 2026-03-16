@@ -2,6 +2,13 @@
 #include "ultrasonic.h"
 #include "display.h"
 
+// SETTINGS AND CONFIGURATION TASKS
+
+
+// BOOT - 
+
+
+// OPERATIONAL MODE TASKS
 
 void ultrasonicTask(void *pvParameters) {
     Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
@@ -40,14 +47,26 @@ void sendText_task(void *pvParameters) {
     }
 }
 
+static void waitServoArrival(ServoMotor* servo, int targetAngle) {
+    const int initialAngle = servo->getAngle(); // Get the current angle of the servo
+    const int angleDifference = abs(targetAngle - initialAngle); // Calculate the difference in angle
+    const float t_move_s = (angleDifference / 60.0f) * SERVO_T60_S * SAFETY_MARGIN_S_FACTOR; // Calculate the time needed to move to the new angle with a safety margin
+    const uint32_t t_move_ms = (uint32_t)(t_move_s * 1000.0f); // Convert time to milliseconds
+    vTaskDelay(t_move_ms / portTICK_PERIOD_MS); // Delay to allow servo to reach the position
+}
 void scanArea_task(void *pvParameters) {
-    ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
-    Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
+    auto* p = static_cast<ScanTaskParams*>(pvParameters); 
+    // ServoMotor *servoMotor = static_cast<ServoMotor *>(pvParameters);
+    // Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
+    ServoMotor* servoMotor = p->servo;
+    Ultrasonic* ultrasonic = p->us;
+
     float in_distance;
     // ServoMotor servoMotor;
     while (true) {
         for (int angle = ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle <= ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle += 1) {
             servoMotor->setAngle(angle);
+            waitServoArrival(servoMotor, angle);
             int actualAngle = servoMotor->getAngle();
             in_distance = ultrasonic->measureDistance();
             String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
@@ -57,6 +76,7 @@ void scanArea_task(void *pvParameters) {
         }
         for (int angle = ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle >= ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle -= 1) {
             servoMotor->setAngle(angle);
+            waitServoArrival(servoMotor, angle);
             int actualAngle = servoMotor->getAngle();
             in_distance = ultrasonic->measureDistance();
             String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
@@ -65,4 +85,8 @@ void scanArea_task(void *pvParameters) {
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
     }
+}
+
+void scanArea_manual_mode_task(void *pvParameters){
+
 }
