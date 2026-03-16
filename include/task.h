@@ -1,5 +1,6 @@
 #ifndef TASK_H
 #define TASK_H
+#include "ultrasonic.h"
 extern "C" {
 // #include <stdio.h>
 #include "freertos/FreeRTOS.h"
@@ -11,8 +12,8 @@ extern "C" {
 
 struct  ScanTaskParams{
     /* data */
-    ServoMotor* *servo;
-    Ultrasonic* *us;
+    ServoMotor* servo;
+    Ultrasonic* us;
 };
 
 
