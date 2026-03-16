@@ -16,8 +16,8 @@ void ultrasonicTask(void *pvParameters) {
 
     while (true) {
         float distance = ultrasonic->measureDistance();
-        Serial.print("Distance: ");
-        Serial.println(distance);
+        // Serial.print("Distance: ");
+        // Serial.println(distance);
         vTaskDelay(400 / portTICK_PERIOD_MS); // Delay for 1 second
     }
 }
@@ -97,7 +97,7 @@ void scanArea_task(void *pvParameters) {
             Serial.print(in_distance);
             Serial.print('.');
             Serial.print('\n');
-            
+
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
     }
