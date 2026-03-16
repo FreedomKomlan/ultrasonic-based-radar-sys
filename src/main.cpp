@@ -11,7 +11,8 @@ ServoMotor servoMotor;
 void setup() {
   // ************************************* Start up and hardware initialization ******************************************
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  // Serial.begin(115200);
+  Serial.begin(9600);
   ultrasonic.init(TRIGGER_PIN, ECHO_PIN);
   initDisplay();
   pinMode(LED_1_PIN, OUTPUT);
