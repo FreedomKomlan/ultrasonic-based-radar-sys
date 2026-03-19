@@ -1,6 +1,11 @@
 #ifndef TASK_H
 #define TASK_H
 #include "ultrasonic.h"
+#include "display.h"
+#include "communication.h"
+#include "config.h"
+#include "alert.h"
+#include "my_credentials.h" // Include the credentials header for WiFi SSID and password
 extern "C" {
 // #include <stdio.h>
 #include "freertos/FreeRTOS.h"
@@ -15,7 +20,6 @@ struct  ScanTaskParams{
     ServoMotor* servo;
     Ultrasonic* us;
 };
-
 
 void ultrasonicTask(void *pvParameters);
 void blink_Led_1_task(void *pvParameters);

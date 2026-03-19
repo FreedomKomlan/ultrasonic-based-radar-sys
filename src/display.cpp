@@ -24,6 +24,14 @@ void initDisplay() {
     display.display();
 }
 
+void sendDataToSerial(const int angle, const float distance) {
+    Serial.print(angle);
+    Serial.print(';');
+    Serial.print(distance);
+    Serial.print('.');
+    Serial.print('\n');
+}
+
 void sendTextToDisplay(const char* text) {
     // // Create an instance of the display
     // Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET_PIN);

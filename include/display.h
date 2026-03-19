@@ -9,6 +9,7 @@
 extern Adafruit_SSD1306 display;
 
 void initDisplay();
+void sendDataToSerial(const int angle, const float distance);
 void sendTextToDisplay(const char* text);
 void startingScreen(void *pvParameters);
 void homeScreen(void *pvParameters);

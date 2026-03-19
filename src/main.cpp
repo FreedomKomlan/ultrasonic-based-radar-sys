@@ -1,26 +1,31 @@
 #include <Arduino.h>
-#include "config.h"
-#include "ultrasonic.h"
-#include "display.h"
 #include "task.h"
 
+// Connection parameters for WiFi
+#define WIFI_SSID WIFI_SSID_DEFINED
+#define WIFI_PASSWORD WIFI_PASSWORD_DEFINED
+#define WIFI_SSID_SERVER_MODE WIFI_SSID_SERVER_MODE_DEFINED
+#define WIFI_PASSWORD_SERVER_MODE WIFI_PASSWORD_SERVER_MODE_DEFINED
 
 Ultrasonic ultrasonic;
 ServoMotor servoMotor;
+// AsyncWebServer server(80);
+// AsyncWebSocket ws("/ws");
 
 void setup() {
   // ************************************* Start up and hardware initialization ******************************************
   // put your setup code here, to run once:
   // Serial.begin(115200);
   Serial.begin(9600);
-  ultrasonic.init(TRIGGER_PIN, ECHO_PIN);
   initDisplay();
+  ultrasonic.init(TRIGGER_PIN, ECHO_PIN);
   pinMode(LED_1_PIN, OUTPUT);
   pinMode(LED_2_PIN, OUTPUT);
   // Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
   digitalWrite(LED_1_PIN, HIGH);
   digitalWrite(LED_2_PIN, HIGH);
   servoMotor.init(SERVO_PIN, ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG, ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG);
+  connect_to_Wifi_nd_start_server(WIFI_SSID, WIFI_PASSWORD);
 
   // ******************************************** Start tasks execution ***************************************************
   xTaskCreatePinnedToCore(ultrasonicTask, "Ultrasonic Task", STACK_MEASURE, &ultrasonic, PRIO_MEASURE, NULL, CORE_REALTIME);

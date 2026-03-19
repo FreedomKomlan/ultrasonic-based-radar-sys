@@ -1,6 +1,4 @@
 #include "task.h"
-#include "ultrasonic.h"
-#include "display.h"
 
 // SETTINGS AND CONFIGURATION TASKS
 
@@ -9,6 +7,7 @@
 
 
 // OPERATIONAL MODE TASKS
+
 
 void ultrasonicTask(void *pvParameters) {
     Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);
@@ -69,17 +68,12 @@ void scanArea_task(void *pvParameters) {
             waitServoArrival(servoMotor, angle);
             int actualAngle = servoMotor->getAngle();
             in_distance = ultrasonic->measureDistance();
-            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
+            String text_to_send_screen = "Angle: " + String(actualAngle) + "°" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
             // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
-            
             // Send the angle and distance information to the pc via the serial port for visualization in the serial monitor
-            Serial.print(actualAngle);
-            Serial.print(';');
-            Serial.print(in_distance);
-            Serial.print('.');
-            Serial.print('\n');
-
+            sendDataToSerial(actualAngle, in_distance);
+            send_data_to_websocket(actualAngle, in_distance); // Send the angle and distance information to the connected WebSocket clients for visualization in the web interface
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
         for (int angle = ZONE_ANGLE_THRESHOLD_MAX_PRESET_DEG; angle >= ZONE_ANGLE_THRESHOLD_MIN_PRESET_DEG; angle -= 1) {
@@ -87,17 +81,12 @@ void scanArea_task(void *pvParameters) {
             waitServoArrival(servoMotor, angle);
             int actualAngle = servoMotor->getAngle();
             in_distance = ultrasonic->measureDistance();
-            String text_to_send_screen = "Angle: " + String(actualAngle) + " deg" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
+            String text_to_send_screen = "Angle: " + String(actualAngle) + "°" + "\nDist. objet: " + String(in_distance) + " " + UNIT_DISTANCE;
             // String text_to_send_screen = "Angle: " + String(actualAngle) + " deg";
             sendTextToDisplay(text_to_send_screen.c_str());
-
             // Send the angle and distance information to the pc via the serial port for visualization in the serial monitor
-            Serial.print(actualAngle);
-            Serial.print(';');
-            Serial.print(in_distance);
-            Serial.print('.');
-            Serial.print('\n');
-
+            sendDataToSerial(actualAngle, in_distance);
+            send_data_to_websocket(actualAngle, in_distance); // Send the angle and distance information to the connected WebSocket clients for visualization in the web interface
             vTaskDelay(200 / portTICK_PERIOD_MS); // Delay to read the angle on the display before moving to the next one
         }
     }
