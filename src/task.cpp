@@ -2,12 +2,9 @@
 
 // SETTINGS AND CONFIGURATION TASKS
 
-
 // BOOT - 
 
-
 // OPERATIONAL MODE TASKS
-
 
 void ultrasonicTask(void *pvParameters) {
     Ultrasonic *ultrasonic = static_cast<Ultrasonic *>(pvParameters);

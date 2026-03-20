@@ -25,7 +25,7 @@
 static constexpr float SERVO_T60_S = 0.12f; // Time for the servo to move 60 degrees (in seconds)
 static constexpr float SAFETY_MARGIN_S_FACTOR = 1.2; // Factor to add as a safety margin to the servo movement time
 
-// Tailles de stack
+// Stack sizes
 #define STACK_MEASURE         4096
 #define STACK_DISPLAY         4096
 #define STACK_BUTTONS         3072

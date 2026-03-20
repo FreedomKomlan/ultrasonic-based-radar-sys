@@ -4,3 +4,4 @@
 .vscode/launch.json
 .vscode/ipch
 commit_auto.sh
+my_credentials.h
